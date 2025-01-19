@@ -24,7 +24,7 @@ if st.button("Save & Send"):
         "split_percent": split_percent,
     }
     query_string = urllib.parse.urlencode(params)
-    link = f"{st.experimental_get_query_params()}?{query_string}"
+    link = f"{st.get_option('server.baseUrl')}?{query_string}"  # Generate a full link
     
     # Display the link for sharing
     st.success("Link generated! Share this with your partner:")
@@ -32,7 +32,7 @@ if st.button("Save & Send"):
 
 # Step 2: Load Partner 1's Data if URL contains pre-filled parameters
 st.header("Review Partner 1's Plan")
-query_params = st.experimental_get_query_params()
+query_params = st.query_params  # Use the updated method to fetch query parameters
 if query_params:
     st.write("Pre-filled details from Partner 1:")
     st.write(f"Your Name: {query_params.get('your_name', [''])[0]}")
