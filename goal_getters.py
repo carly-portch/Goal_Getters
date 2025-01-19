@@ -24,7 +24,10 @@ if st.button("Save & Send"):
         "split_percent": split_percent,
     }
     query_string = urllib.parse.urlencode(params)
-    link = f"{st.get_option('server.baseUrl')}?{query_string}"  # Generate a full link
+    
+    # Hardcode the base URL for deployment or use relative linking for local development
+    base_url = "http://localhost:8501"  # Replace this with the deployed app's URL
+    link = f"{base_url}/?{query_string}"  # Construct the full link
     
     # Display the link for sharing
     st.success("Link generated! Share this with your partner:")
