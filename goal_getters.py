@@ -79,22 +79,22 @@ col1, col2 = st.columns(2)
 with col1:
     # Partner 1's (pre-filled) information in the first column
     st.header("Partner 1's Information")
-    your_name = st.text_input("Your Name", value=your_name, disabled=True)
-    partner_name = st.text_input("Partner's Name", value=partner_name, disabled=True)
-    goal_name = st.text_input("Goal (e.g., Buy a house)", value=goal_name, disabled=True)
-    total_goal = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, disabled=True)
-    timeline_years = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, disabled=True)
-    split_percent = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True)
+    your_name = st.text_input("Your Name", value=your_name, disabled=True, key="your_name_1")
+    partner_name = st.text_input("Partner's Name", value=partner_name, disabled=True, key="partner_name_1")
+    goal_name = st.text_input("Goal (e.g., Buy a house)", value=goal_name, disabled=True, key="goal_name_1")
+    total_goal = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, disabled=True, key="total_goal_1")
+    timeline_years = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, disabled=True, key="timeline_years_1")
+    split_percent = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
 
 with col2:
     # Partner 2's (editable) information in the second column
     st.header("Partner 2's Information")
-    your_name_2 = st.text_input("Your Name", value=your_name)
-    partner_name_2 = st.text_input("Partner's Name", value=partner_name)
-    goal_name_2 = st.text_input("Goal (e.g., Buy a house)", value=goal_name)
-    total_goal_2 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000)
-    timeline_years_2 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5)
-    split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent)
+    your_name_2 = st.text_input("Your Name", value=your_name, key="your_name_2")
+    partner_name_2 = st.text_input("Partner's Name", value=partner_name, key="partner_name_2")
+    goal_name_2 = st.text_input("Goal (e.g., Buy a house)", value=goal_name, key="goal_name_2")
+    total_goal_2 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, key="total_goal_2")
+    timeline_years_2 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, key="timeline_years_2")
+    split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, key="split_percent_2")
 
 # Step 5: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
