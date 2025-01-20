@@ -75,6 +75,8 @@ if uploaded_file is not None:
         
     except Exception as e:
         st.error(f"Error parsing the uploaded file: {e}")
+else:
+    flip_percent = 50  # Default value if no file is uploaded
 
 # Step 4: Set up columns for Partner 1 and Partner 2
 col1, col2 = st.columns(2)
