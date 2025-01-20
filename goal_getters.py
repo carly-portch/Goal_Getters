@@ -1,5 +1,6 @@
 import streamlit as st
 import urllib.parse
+import os
 
 # Step 1: Input Form for Partner 1
 st.title("Goal Getters: Collaborative Goal Planner")
@@ -24,9 +25,13 @@ if st.button("Save & Send"):
         "split_percent": split_percent,
     }
     query_string = urllib.parse.urlencode(params)
-    
-    # Hardcode the base URL for deployment or use relative linking for local development
-    base_url = "http://localhost:8501"  # Replace this with the deployed app's URL
+
+    # Dynamically determine the base URL
+    if "BASE_URL" in st.secrets:  # Use BASE_URL from secrets if deployed
+        base_url = st.secrets["BASE_URL"]
+    else:  # Default to localhost for local development
+        base_url = "http://localhost:8501"
+
     link = f"{base_url}/?{query_string}"  # Construct the full link
     
     # Display the link for sharing
