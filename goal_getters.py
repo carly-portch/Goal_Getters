@@ -93,9 +93,8 @@ with col1:
     goal_name_1 = st.text_input("Goal (e.g., Buy a house)", value=goal_name, disabled=True, key="goal_name_1")
     total_goal_1 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, disabled=True, key="total_goal_1")
     timeline_years_1 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, disabled=True, key="timeline_years_1")
-    split_percent_1 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
     
-    # Static Contribution and Monthly Contribution (greyed out)
+    # Display percent contribution and monthly contribution for the left column in a format matching the right
     st.write(f"**{your_name}'s Contribution**: {split_percent}%")
     partner_1_contribution = (total_goal * split_percent / 100)
     monthly_partner_1_contribution = partner_1_contribution / (timeline_years * 12)
