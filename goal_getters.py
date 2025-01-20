@@ -33,7 +33,9 @@ if uploaded_file is not None:
         # Remove dollar sign and parse as float for total goal
         total_goal = float(parsed_data.get("Total Goal", total_goal).replace("$", "").replace(",", ""))
         
-        timeline_years = float(parsed_data.get("Timeline", timeline_years))
+        # Remove 'years' and convert to float for timeline_years
+        timeline_years = float(parsed_data.get("Timeline", str(timeline_years)).replace(" years", "").strip())
+        
         split_percent = int(parsed_data.get("Contribution Split", split_percent))
         
         # Display parsed data
