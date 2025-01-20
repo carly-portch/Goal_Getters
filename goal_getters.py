@@ -93,18 +93,19 @@ with col1:
     goal_name_1 = st.text_input("Goal (e.g., Buy a house)", value=goal_name, disabled=True, key="goal_name_1")
     total_goal_1 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, disabled=True, key="total_goal_1")
     timeline_years_1 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, disabled=True, key="timeline_years_1")
+    split_percent_1 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
     
-    # Dynamically update slider labels based on partner names
-    split_percent_1 = st.slider(f"{your_name}'s Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
-    
-    # Static Contribution and Monthly Contribution (greyed out)
+    # Display contributions in percent
     st.write(f"**{your_name}'s Contribution**: {split_percent}%")
     partner_1_contribution = (total_goal * split_percent / 100)
     monthly_partner_1_contribution = partner_1_contribution / (timeline_years * 12)
-    st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
     st.write(f"**{partner_name}'s Contribution**: {100 - split_percent}%")
     partner_2_contribution = total_goal - partner_1_contribution
     monthly_partner_2_contribution = partner_2_contribution / (timeline_years * 12)
+    
+    # Monthly Contributions Section
+    st.header("Monthly Contributions")
+    st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
     st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
 
 with col2:
@@ -120,8 +121,8 @@ with col2:
     total_goal_2 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, key="total_goal_2")
     timeline_years_2 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, key="timeline_years_2")
     
-    # Dynamically update slider labels based on partner names
-    split_percent_2 = st.slider(f"{partner_name}'s Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
+    # Contribution slider with intuitive visual updates (flipped contribution from Partner 1)
+    split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
 
     # Calculate contributions based on the split
     partner_2_contribution = (total_goal_2 * split_percent_2 / 100)
@@ -129,15 +130,14 @@ with col2:
     monthly_partner_2_contribution = partner_2_contribution / (timeline_years_2 * 12)  # In months
     monthly_partner_1_contribution = partner_1_contribution / (timeline_years_2 * 12)
 
-    # Contribution visual (percentages) below the slider
-    st.write(f"**{partner_name}'s Contribution**: {split_percent_2}%")
+    # Display contributions in percent
     st.write(f"**{your_name}'s Contribution**: {100 - split_percent_2}%")
-
+    st.write(f"**{partner_name}'s Contribution**: {split_percent_2}%")
+    
     # Monthly Contributions Section
-    if total_goal_2 > 0 and timeline_years_2 > 0:
-        st.subheader("Monthly Contributions")
-        st.write(f"Monthly Contribution ({your_name}): ${monthly_partner_1_contribution:.2f}")
-        st.write(f"Monthly Contribution ({partner_name}): ${monthly_partner_2_contribution:.2f}")
+    st.header("Monthly Contributions")
+    st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
+    st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
 
 # Step 5: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
