@@ -102,7 +102,21 @@ with col2:
     goal_name_2 = st.text_input("Goal (e.g., Buy a house)", value=goal_name, key="goal_name_2")
     total_goal_2 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, key="total_goal_2")
     timeline_years_2 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, key="timeline_years_2")
+    
+    # Contribution slider
     split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, key="split_percent_2")
+
+    # Calculate monthly contributions based on the split
+    partner_2_contribution = (total_goal_2 * split_percent_2 / 100)
+    partner_1_contribution = total_goal_2 - partner_2_contribution
+    monthly_partner_2_contribution = partner_2_contribution / (timeline_years_2 * 12)  # In months
+    monthly_partner_1_contribution = partner_1_contribution / (timeline_years_2 * 12)
+
+    # Display dynamic contribution breakdown
+    st.write(f"Carly's Contribution: ${partner_1_contribution} ({split_percent_2}%)")
+    st.write(f"Jim's Contribution: ${partner_2_contribution} ({100 - split_percent_2}%)")
+    st.write(f"Monthly Contribution (Carly): ${monthly_partner_1_contribution:.2f}")
+    st.write(f"Monthly Contribution (Jim): ${monthly_partner_2_contribution:.2f}")
 
 # Step 5: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
@@ -126,8 +140,8 @@ Timeline: {timeline_years_2} years
 Contribution Split: {split_percent_2}%
 
 Calculated Details:
-Partner 2's Contribution: ${total_goal_2 * split_percent_2 / 100}
-Partner 1's Contribution: ${total_goal_2 * (100 - split_percent_2) / 100}
+Partner 2's Contribution: ${partner_2_contribution}
+Partner 1's Contribution: ${partner_1_contribution}
 """
     
     # Write content to a temporary text file
