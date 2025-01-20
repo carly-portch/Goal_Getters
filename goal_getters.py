@@ -131,13 +131,13 @@ with col2:
     monthly_partner_1_contribution = partner_1_contribution / (timeline_years_2 * 12)
 
     # Display contributions in percent
-    st.write(f"**{your_name}'s Contribution**: {100 - split_percent_2}%")
-    st.write(f"**{partner_name}'s Contribution**: {split_percent_2}%")
+    st.write(f"**{your_name_2}'s Contribution**: {100 - split_percent_2}%")
+    st.write(f"**{partner_name_2}'s Contribution**: {split_percent_2}%")
     
     # Monthly Contributions Section
     st.header("Monthly Contributions")
-    st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
-    st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
+    st.write(f"**{your_name_2}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
+    st.write(f"**{partner_name_2}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
 
 # Step 5: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
