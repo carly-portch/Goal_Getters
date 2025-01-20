@@ -89,6 +89,16 @@ with col1:
     total_goal_1 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, disabled=True, key="total_goal_1")
     timeline_years_1 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, disabled=True, key="timeline_years_1")
     split_percent_1 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
+    
+    # Static Contribution and Monthly Contribution (greyed out)
+    st.write(f"**{your_name}'s Contribution**: {split_percent}%")
+    partner_1_contribution = (total_goal * split_percent / 100)
+    monthly_partner_1_contribution = partner_1_contribution / (timeline_years * 12)
+    st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
+    st.write(f"**{partner_name}'s Contribution**: {100 - split_percent}%")
+    partner_2_contribution = total_goal - partner_1_contribution
+    monthly_partner_2_contribution = partner_2_contribution / (timeline_years * 12)
+    st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
 
 with col2:
     # Display appropriate header based on file upload status
@@ -113,8 +123,8 @@ with col2:
     monthly_partner_1_contribution = partner_1_contribution / (timeline_years_2 * 12)
 
     # Contribution visual (percentages) below the slider
-    st.write(f"**{your_name}'s Contribution**: {split_percent_2}%")
-    st.write(f"**{partner_name}'s Contribution**: {100 - split_percent_2}%")
+    st.write(f"**{partner_name}'s Contribution**: {split_percent_2}%")
+    st.write(f"**{your_name}'s Contribution**: {100 - split_percent_2}%")
 
     # Monthly Contributions Section
     if total_goal_2 > 0 and timeline_years_2 > 0:
