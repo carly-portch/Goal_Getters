@@ -77,11 +77,11 @@ if uploaded_file is not None:
 col1, col2 = st.columns(2)
 
 with col1:
-    # Partner 1's (pre-filled) information in the first column
+    # Display appropriate header based on file upload status
     if uploaded_file is not None:
-        st.header(f"{your_name}'s Information")  # Display Partner 1's name as the header
+        st.header(f"{your_name}'s Idea")  # Display the uploading partner's name in the header
     else:
-        st.header("Partner 1's Information")
+        st.header("My Partner's Information")
         
     your_name_1 = st.text_input("Your Name", value=your_name, disabled=True, key="your_name_1")
     partner_name_1 = st.text_input("Partner's Name", value=partner_name, disabled=True, key="partner_name_1")
@@ -91,11 +91,11 @@ with col1:
     split_percent_1 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
 
 with col2:
-    # Partner 2's (editable) information in the second column
+    # Display appropriate header based on file upload status
     if uploaded_file is not None:
-        st.header(f"{partner_name}'s Idea")  # Display Partner 2's name as the header
+        st.header(f"{partner_name}'s Idea")  # Display the partner's name as the header
     else:
-        st.header("Partner 2's Information")
+        st.header("Me")
         
     your_name_2 = st.text_input("Your Name", value=partner_name, key="your_name_2")
     partner_name_2 = st.text_input("Partner's Name", value=your_name, key="partner_name_2")
