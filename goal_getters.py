@@ -93,7 +93,7 @@ with col1:
     goal_name_1 = st.text_input("Goal (e.g., Buy a house)", value=goal_name, disabled=True, key="goal_name_1")
     total_goal_1 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, disabled=True, key="total_goal_1")
     timeline_years_1 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, disabled=True, key="timeline_years_1")
-    split_percent_1 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
+    split_percent_1 = st.slider(f"{your_name}'s Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
     
     # Display contributions in percent
     st.write(f"**{your_name}'s Contribution**: {split_percent}%")
@@ -122,7 +122,7 @@ with col2:
     timeline_years_2 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, key="timeline_years_2")
     
     # Contribution slider with intuitive visual updates (flipped contribution from Partner 1)
-    split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
+    split_percent_2 = st.slider(f"{partner_name}'s Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
 
     # Calculate contributions based on the split
     partner_2_contribution = (total_goal_2 * split_percent_2 / 100)
