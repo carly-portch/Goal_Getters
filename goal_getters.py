@@ -68,7 +68,7 @@ if uploaded_file is not None:
         split_percent = clean_value(parsed_data.get("Contribution Split", ""), split_percent, remove_chars=["%"])
         
         # Display pre-filled data in the first column for Partner 1
-        st.write("Partner 1's information has been pre-filled. Partner 2 can make edits in the second column.")
+        st.write(f"Partner 1: {your_name} has filled out the goal planner. Partner 2 can make edits in the second column.")
         
     except Exception as e:
         st.error(f"Error parsing the uploaded file: {e}")
@@ -78,7 +78,11 @@ col1, col2 = st.columns(2)
 
 with col1:
     # Partner 1's (pre-filled) information in the first column
-    st.header("Partner 1's Information")
+    if uploaded_file is not None:
+        st.header(f"{your_name}'s Information")  # Display Partner 1's name as the header
+    else:
+        st.header("Partner 1's Information")
+        
     your_name = st.text_input("Your Name", value=your_name, disabled=True, key="your_name_1")
     partner_name = st.text_input("Partner's Name", value=partner_name, disabled=True, key="partner_name_1")
     goal_name = st.text_input("Goal (e.g., Buy a house)", value=goal_name, disabled=True, key="goal_name_1")
@@ -88,7 +92,11 @@ with col1:
 
 with col2:
     # Partner 2's (editable) information in the second column
-    st.header("Partner 2's Information")
+    if uploaded_file is not None:
+        st.header(f"{partner_name}'s Information")  # Display Partner 2's name as the header
+    else:
+        st.header("Partner 2's Information")
+        
     your_name_2 = st.text_input("Your Name", value=your_name, key="your_name_2")
     partner_name_2 = st.text_input("Partner's Name", value=partner_name, key="partner_name_2")
     goal_name_2 = st.text_input("Goal (e.g., Buy a house)", value=goal_name, key="goal_name_2")
