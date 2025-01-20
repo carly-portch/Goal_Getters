@@ -86,14 +86,14 @@ with col1:
     if uploaded_file is not None:
         st.header(f"{your_name}")  # Display the uploading partner's first name
     else:
-        st.header("My Partner")  # Changed when no file is uploaded
+        st.header("My Partner's Information")
         
     your_name_1 = st.text_input("Your Name", value=your_name, disabled=True, key="your_name_1")
     partner_name_1 = st.text_input("Partner's Name", value=partner_name, disabled=True, key="partner_name_1")
     goal_name_1 = st.text_input("Goal (e.g., Buy a house)", value=goal_name, disabled=True, key="goal_name_1")
     total_goal_1 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, disabled=True, key="total_goal_1")
     timeline_years_1 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, disabled=True, key="timeline_years_1")
-    split_percent_1 = st.slider(f"{your_name}'s Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
+    split_percent_1 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, disabled=True, key="split_percent_1")
     
     # Display contributions in percent
     st.write(f"**{your_name}'s Contribution**: {split_percent}%")
@@ -108,16 +108,12 @@ with col1:
     st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
     st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
 
-    # Display partner names below to clarify whose contribution is being referred to
-    st.write(f"Contribution Breakdown for {your_name}: {split_percent}%")
-    st.write(f"Contribution Breakdown for {partner_name}: {100 - split_percent}%")
-
 with col2:
     # Display appropriate header based on file upload status
     if uploaded_file is not None:
         st.header(f"{partner_name}")  # Display the partner's first name
     else:
-        st.header("Me")  # Changed when no file is uploaded
+        st.header("Me")
         
     your_name_2 = st.text_input("Your Name", value=partner_name, key="your_name_2")
     partner_name_2 = st.text_input("Partner's Name", value=your_name, key="partner_name_2")
@@ -126,7 +122,7 @@ with col2:
     timeline_years_2 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, key="timeline_years_2")
     
     # Contribution slider with intuitive visual updates (flipped contribution from Partner 1)
-    split_percent_2 = st.slider(f"{partner_name}'s Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
+    split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
 
     # Calculate contributions based on the split
     partner_2_contribution = (total_goal_2 * split_percent_2 / 100)
@@ -142,10 +138,6 @@ with col2:
     st.header("Monthly Contributions")
     st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
     st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
-
-    # Display partner names below to clarify whose contribution is being referred to
-    st.write(f"Contribution Breakdown for {your_name}: {100 - split_percent_2}%")
-    st.write(f"Contribution Breakdown for {partner_name}: {split_percent_2}%")
 
 # Step 5: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
