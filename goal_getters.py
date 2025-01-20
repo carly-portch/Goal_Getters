@@ -68,13 +68,18 @@ else:
 col1, col2 = st.columns(2)
 
 with col1:
-    # Left Column: Display Partner 1's Data (with sliders for % and $ contribution)
+    # Left Column: Display Partner 1's Data (with inputs above the sliders)
     st.header(f"{your_name}'s Information")
+    
+    # Display input fields for Partner 1 (goal name, total goal, timeline)
+    goal_name_input = st.text_input("Goal Name", value=goal_name, key="goal_name_input")
+    total_goal_input = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000)
+    timeline_years_input = st.number_input("Timeline (Years)", min_value=1, value=timeline_years, step=1)
     
     # Display the contribution slider and information for Partner 1 (left column)
     split_percent_1 = st.slider(f"{your_name}'s Contribution (%)", min_value=0, max_value=100, value=split_percent, key="split_percent_1")
     partner_1_contribution = (total_goal * split_percent_1 / 100)
-    monthly_partner_1_contribution = partner_1_contribution / (timeline_years * 12)
+    monthly_partner_1_contribution = partner_1_contribution / (timeline_years_input * 12)
     
     # Display the percentage and dollar amount for Partner 1
     st.write(f"**{your_name}'s Contribution**: {split_percent_1}%")
@@ -82,7 +87,7 @@ with col1:
     
     st.write(f"**{partner_name}'s Contribution**: {100 - split_percent_1}%")
     partner_2_contribution = total_goal - partner_1_contribution
-    monthly_partner_2_contribution = partner_2_contribution / (timeline_years * 12)
+    monthly_partner_2_contribution = partner_2_contribution / (timeline_years_input * 12)
     
     # Display the percentage and dollar amount for Partner 2 (left column)
     st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
@@ -91,10 +96,15 @@ with col2:
     # Right Column: Display Partner 2's Data (Editable for Partner 2)
     st.header(f"{partner_name}'s Information")
     
+    # Display input fields for Partner 2 (goal name, total goal, timeline)
+    goal_name_input_2 = st.text_input("Goal Name", value=goal_name, key="goal_name_input_2")
+    total_goal_input_2 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000)
+    timeline_years_input_2 = st.number_input("Timeline (Years)", min_value=1, value=timeline_years, step=1)
+    
     # Display the contribution slider and information for Partner 2 (right column)
     split_percent_2 = st.slider(f"{partner_name}'s Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
     partner_2_contribution = (total_goal * split_percent_2 / 100)
-    monthly_partner_2_contribution = partner_2_contribution / (timeline_years * 12)
+    monthly_partner_2_contribution = partner_2_contribution / (timeline_years_input_2 * 12)
     
     # Display the percentage and dollar amount for Partner 2
     st.write(f"**{partner_name}'s Contribution**: {split_percent_2}%")
@@ -102,8 +112,18 @@ with col2:
     
     st.write(f"**{your_name}'s Contribution**: {100 - split_percent_2}%")
     partner_1_contribution = total_goal - partner_2_contribution
-    monthly_partner_1_contribution = partner_1_contribution / (timeline_years * 12)
+    monthly_partner_1_contribution = partner_1_contribution / (timeline_years_input_2 * 12)
     
     # Display the percentage and dollar amount for Partner 1 (right column)
     st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
 
+# Step 3: Comparison at the bottom (aligning both partners for easy comparison)
+st.subheader("Contribution Comparison")
+
+# Left column contributions (from first partner)
+st.write(f"{your_name}'s Contribution: {split_percent_1}% → ${monthly_partner_1_contribution:.2f} monthly")
+st.write(f"{partner_name}'s Contribution: {100 - split_percent_1}% → ${monthly_partner_2_contribution:.2f} monthly")
+
+# Right column contributions (from second partner, editable)
+st.write(f"{partner_name}'s Contribution: {split_percent_2}% → ${monthly_partner_2_contribution:.2f} monthly")
+st.write(f"{your_name}'s Contribution: {100 - split_percent_2}% → ${monthly_partner_1_contribution:.2f} monthly")
