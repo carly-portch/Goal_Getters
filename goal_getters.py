@@ -68,7 +68,7 @@ if uploaded_file is not None:
         split_percent = clean_value(parsed_data.get("Contribution Split", ""), split_percent, remove_chars=["%"])
         
         # Display pre-filled data in the first column for Partner 1
-        st.write(f"Partner 1: {your_name} has filled out the goal planner. Partner 2 can make edits in the second column.")
+        st.write(f"{your_name} has filled out the goal planner. You can make edits in the second column.")
         
     except Exception as e:
         st.error(f"Error parsing the uploaded file: {e}")
@@ -79,7 +79,7 @@ col1, col2 = st.columns(2)
 with col1:
     # Display appropriate header based on file upload status
     if uploaded_file is not None:
-        st.header(f"{your_name}'s Idea")  # Display the uploading partner's name in the header
+        st.header(f"{your_name}")  # Display the uploading partner's first name
     else:
         st.header("My Partner's Information")
         
@@ -93,7 +93,7 @@ with col1:
 with col2:
     # Display appropriate header based on file upload status
     if uploaded_file is not None:
-        st.header(f"{partner_name}'s Idea")  # Display the partner's name as the header
+        st.header(f"{partner_name}")  # Display the partner's first name
     else:
         st.header("Me")
         
