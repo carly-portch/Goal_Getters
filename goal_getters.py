@@ -36,7 +36,8 @@ if uploaded_file is not None:
         # Remove 'years' and convert to float for timeline_years
         timeline_years = float(parsed_data.get("Timeline", str(timeline_years)).replace(" years", "").strip())
         
-        split_percent = int(parsed_data.get("Contribution Split", split_percent))
+        # Remove '%' and convert to int for split_percent
+        split_percent = int(parsed_data.get("Contribution Split", str(split_percent)).replace("%", "").strip())
         
         # Display parsed data
         st.write("Parsed data from your partner's file:")
