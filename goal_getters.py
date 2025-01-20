@@ -8,7 +8,7 @@ st.write("Plan your financial goals together!")
 # Step 2: File Upload (for Partner 2)
 uploaded_file = st.file_uploader("Upload your partner's goal file", type=["txt"])
 
-# Initialize variables
+# Initialize variables for Partner 2 (with defaults)
 your_name = st.text_input("Your Name")
 partner_name = st.text_input("Partner's Name")
 goal_name = st.text_input("Goal (e.g., Buy a house)", "")
@@ -25,7 +25,7 @@ if uploaded_file is not None:
         lines = content.splitlines()
         parsed_data = {line.split(":")[0].strip(): line.split(":")[1].strip() for line in lines if ":" in line}
         
-        # Repopulate the fields with the parsed data
+        # Repopulate the fields with the parsed data from the uploaded file
         your_name = parsed_data.get("Your Name", your_name)
         partner_name = parsed_data.get("Partner's Name", partner_name)
         goal_name = parsed_data.get("Goal", goal_name)
@@ -39,21 +39,15 @@ if uploaded_file is not None:
         # Remove '%' and convert to int for split_percent
         split_percent = int(parsed_data.get("Contribution Split", str(split_percent)).replace("%", "").strip())
         
-        # Display parsed data
-        st.write("Parsed data from your partner's file:")
-        st.write(f"Your Name: {your_name}")
-        st.write(f"Partner's Name: {partner_name}")
-        st.write(f"Goal: {goal_name}")
-        st.write(f"Total Goal: ${total_goal}")
-        st.write(f"Timeline: {timeline_years} years")
-        st.write(f"Contribution Split: {split_percent}%")
+        # Display pre-filled data in the input fields for Partner 2 to adjust
+        st.write("Partner's information has been pre-filled. Adjust as needed.")
         
     except Exception as e:
         st.error(f"Error parsing the uploaded file: {e}")
 
-# Step 4: Save & Generate File (Partner 1's Data)
+# Step 4: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
-    # Prepare content for the text file
+    # Prepare content for the text file (adjusted by Partner 2)
     file_content = f"""Goal Getters - Collaborative Goal Planner
 -----------------------------------------
 Partner 1's Information:
@@ -77,7 +71,7 @@ Partner's Contribution: ${total_goal * (100 - split_percent) / 100}
     # Offer the file as a download
     with open(temp_file_path, "rb") as file:
         st.download_button(
-            label="Download Your Goal Planner",
+            label="Download Your Updated Goal Planner",
             data=file,
             file_name="goal_planner_output.txt",
             mime="text/plain"
