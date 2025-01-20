@@ -67,6 +67,9 @@ if uploaded_file is not None:
         # Clean and parse split_percent (remove '%')
         split_percent = clean_value(parsed_data.get("Contribution Split", ""), split_percent, remove_chars=["%"])
         
+        # Flip the split percent for the right column (complementary)
+        flip_percent = 100 - split_percent
+        
         # Display pre-filled data in the first column for Partner 1
         st.write(f"{your_name} has filled out the goal planner. You can make edits in the second column.")
         
@@ -113,8 +116,8 @@ with col2:
     total_goal_2 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000, key="total_goal_2")
     timeline_years_2 = st.number_input("Timeline (Years)", min_value=0.5, value=timeline_years, step=0.5, key="timeline_years_2")
     
-    # Contribution slider with intuitive visual updates
-    split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=split_percent, key="split_percent_2")
+    # Contribution slider with intuitive visual updates (flipped contribution from Partner 1)
+    split_percent_2 = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
 
     # Calculate contributions based on the split
     partner_2_contribution = (total_goal_2 * split_percent_2 / 100)
