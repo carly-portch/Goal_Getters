@@ -29,7 +29,10 @@ if uploaded_file is not None:
         your_name = parsed_data.get("Your Name", your_name)
         partner_name = parsed_data.get("Partner's Name", partner_name)
         goal_name = parsed_data.get("Goal", goal_name)
-        total_goal = float(parsed_data.get("Total Goal", total_goal))
+        
+        # Remove dollar sign and parse as float for total goal
+        total_goal = float(parsed_data.get("Total Goal", total_goal).replace("$", "").replace(",", ""))
+        
         timeline_years = float(parsed_data.get("Timeline", timeline_years))
         split_percent = int(parsed_data.get("Contribution Split", split_percent))
         
