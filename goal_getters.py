@@ -86,7 +86,7 @@ with col1:
     if uploaded_file is not None:
         st.header(f"{your_name}")  # Display the uploading partner's first name
     else:
-        st.header("My Partner's Information")
+        st.header("My Partner")
         
     your_name_1 = st.text_input("Your Name", value=your_name, disabled=True, key="your_name_1")
     partner_name_1 = st.text_input("Partner's Name", value=partner_name, disabled=True, key="partner_name_1")
