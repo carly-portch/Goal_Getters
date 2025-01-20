@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 
 # Step 1: Input Form for Partner 1
 st.title("Goal Getters: Collaborative Goal Planner")
@@ -16,6 +15,35 @@ total_goal = 50000
 timeline_years = 5.0
 split_percent = 50
 
+# Function to clean the parsed data values
+def clean_value(value, default_value, remove_chars=None):
+    """
+    Cleans the parsed value by removing specified characters and converting it to the appropriate type.
+    Args:
+    - value (str): The parsed value from the uploaded file.
+    - default_value: The default value to return if cleaning fails.
+    - remove_chars (list): A list of characters to remove from the value.
+    
+    Returns:
+    - The cleaned value, converted to the appropriate type (int or float).
+    """
+    if not value:
+        return default_value
+    
+    # Remove unwanted characters
+    if remove_chars:
+        for char in remove_chars:
+            value = value.replace(char, "")
+    
+    try:
+        if "." in value:
+            return float(value)
+        else:
+            return int(value)
+    except ValueError:
+        return default_value
+
+
 # Step 3: Handle file upload and parse data if file is uploaded
 if uploaded_file is not None:
     content = uploaded_file.getvalue().decode("utf-8")
@@ -30,14 +58,14 @@ if uploaded_file is not None:
         partner_name = parsed_data.get("Partner's Name", partner_name)
         goal_name = parsed_data.get("Goal", goal_name)
         
-        # Remove dollar sign and parse as float for total goal
-        total_goal = float(parsed_data.get("Total Goal", total_goal).replace("$", "").replace(",", ""))
+        # Clean and parse total goal to float (remove '$' and commas)
+        total_goal = clean_value(parsed_data.get("Total Goal", ""), total_goal, remove_chars=["$", ","])
         
-        # Remove 'years' and convert to float for timeline_years
-        timeline_years = float(parsed_data.get("Timeline", str(timeline_years)).replace(" years", "").strip())
+        # Clean and parse timeline_years (remove 'years')
+        timeline_years = clean_value(parsed_data.get("Timeline", ""), timeline_years, remove_chars=["years"])
         
-        # Remove '%' and convert to int for split_percent
-        split_percent = int(parsed_data.get("Contribution Split", str(split_percent)).replace("%", "").strip())
+        # Clean and parse split_percent (remove '%')
+        split_percent = clean_value(parsed_data.get("Contribution Split", ""), split_percent, remove_chars=["%"])
         
         # Display pre-filled data in the input fields for Partner 2 to adjust
         st.write("Partner's information has been pre-filled. Adjust as needed.")
