@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 # Step 1: Input Form for Partner 1
 st.title("Goal Getters: Collaborative Goal Planner")
@@ -130,13 +131,30 @@ with col2:
     st.write(f"**{partner_name}'s Contribution**: {split_percent_2}%")
     st.write(f"**{your_name}'s Contribution**: {100 - split_percent_2}%")
 
-    # Monthly Contributions Section
-    if total_goal_2 > 0 and timeline_years_2 > 0:
-        st.subheader("Monthly Contributions")
-        st.write(f"Monthly Contribution ({your_name}): ${monthly_partner_1_contribution:.2f}")
-        st.write(f"Monthly Contribution ({partner_name}): ${monthly_partner_2_contribution:.2f}")
+# Step 5: Display Contribution Comparison Table
+st.subheader("Contribution Comparison")
 
-# Step 5: Save & Generate File (Partner 2's Data after adjustments)
+# Create a DataFrame to compare both partners' contributions in a table
+data = {
+    "Contributor": [your_name, partner_name],
+    "Contribution (%) - Your Suggestion": [split_percent, 100 - split_percent],
+    "Monthly Contribution - Your Suggestion ($)": [
+        monthly_partner_1_contribution,
+        monthly_partner_2_contribution,
+    ],
+    "Contribution (%) - Partner's Suggestion": [100 - split_percent_2, split_percent_2],
+    "Monthly Contribution - Partner's Suggestion ($)": [
+        monthly_partner_1_contribution,
+        monthly_partner_2_contribution,
+    ],
+}
+
+df = pd.DataFrame(data)
+
+# Display the table
+st.table(df)
+
+# Step 6: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
     # Prepare content for the text file (adjusted by Partner 2)
     file_content = f"""Goal Getters - Collaborative Goal Planner
@@ -176,4 +194,3 @@ Partner 1's Contribution: ${partner_1_contribution}
             mime="text/plain"
         )
     
-    st.success("Your goal planner file has been generated! Download it and share with your partner.")
