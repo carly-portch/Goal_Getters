@@ -86,7 +86,7 @@ with col1:
     if uploaded_file is not None:
         st.header(f"{your_name}")  # Display the uploading partner's first name
     else:
-        st.header("My Partner's Information")
+        st.header("My Partner")
         
     your_name_1 = st.text_input("Your Name", value=your_name, disabled=True, key="your_name_1")
     partner_name_1 = st.text_input("Partner's Name", value=partner_name, disabled=True, key="partner_name_1")
@@ -131,13 +131,13 @@ with col2:
     monthly_partner_1_contribution = partner_1_contribution / (timeline_years_2 * 12)
 
     # Display contributions in percent
-    st.write(f"**{your_name_2}'s Contribution**: {100 - split_percent_2}%")
-    st.write(f"**{partner_name_2}'s Contribution**: {split_percent_2}%")
+    st.write(f"**{your_name}'s Contribution**: {100 - split_percent_2}%")
+    st.write(f"**{partner_name}'s Contribution**: {split_percent_2}%")
     
     # Monthly Contributions Section
     st.header("Monthly Contributions")
-    st.write(f"**{your_name_2}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
-    st.write(f"**{partner_name_2}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
+    st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
+    st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
 
 # Step 5: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
