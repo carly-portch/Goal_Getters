@@ -86,7 +86,7 @@ with col1:
     if uploaded_file is not None:
         st.header(f"{your_name}")  # Display the uploading partner's first name
     else:
-        st.header("My Partner")
+        st.header("Your Partner")  # Changed when no file is uploaded
         
     your_name_1 = st.text_input("Your Name", value=your_name, disabled=True, key="your_name_1")
     partner_name_1 = st.text_input("Partner's Name", value=partner_name, disabled=True, key="partner_name_1")
@@ -108,12 +108,16 @@ with col1:
     st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
     st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
 
+    # Display partner names below to clarify whose contribution is being referred to
+    st.write(f"Contribution Breakdown for {your_name}: {split_percent}%")
+    st.write(f"Contribution Breakdown for {partner_name}: {100 - split_percent}%")
+
 with col2:
     # Display appropriate header based on file upload status
     if uploaded_file is not None:
         st.header(f"{partner_name}")  # Display the partner's first name
     else:
-        st.header("Me")
+        st.header("Me")  # Changed when no file is uploaded
         
     your_name_2 = st.text_input("Your Name", value=partner_name, key="your_name_2")
     partner_name_2 = st.text_input("Partner's Name", value=your_name, key="partner_name_2")
@@ -138,6 +142,10 @@ with col2:
     st.header("Monthly Contributions")
     st.write(f"**{your_name}'s Monthly Contribution**: ${monthly_partner_1_contribution:.2f}")
     st.write(f"**{partner_name}'s Monthly Contribution**: ${monthly_partner_2_contribution:.2f}")
+
+    # Display partner names below to clarify whose contribution is being referred to
+    st.write(f"Contribution Breakdown for {your_name}: {100 - split_percent_2}%")
+    st.write(f"Contribution Breakdown for {partner_name}: {split_percent_2}%")
 
 # Step 5: Save & Generate File (Partner 2's Data after adjustments)
 if st.button("Save & Generate File"):
