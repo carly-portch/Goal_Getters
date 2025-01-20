@@ -1,13 +1,13 @@
 import streamlit as st
 
-# Initialize default values
+# Initialize default values with explicit types
 your_name = "Carly"
 partner_name = "Jim"
 goal_name = "Buy a House"
-total_goal = 50000
-timeline_years = 5.0
-split_percent = 50  # Default percentage
-flip_percent = 50  # Default flipped percentage
+total_goal = 50000.0  # Ensure this is a float
+timeline_years = 5.0  # Ensure this is a float
+split_percent = 50  # Default percentage (int)
+flip_percent = 50  # Default flipped percentage (int)
 
 # Function to clean and parse data from uploaded file
 def clean_value(value, default_value, remove_chars=None):
@@ -73,8 +73,8 @@ with col1:
     
     # Display input fields for Partner 1 (goal name, total goal, timeline)
     goal_name_input = st.text_input("Goal Name", value=goal_name, key="goal_name_input")
-    total_goal_input = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000)
-    timeline_years_input = st.number_input("Timeline (Years)", min_value=1, value=timeline_years, step=1)
+    total_goal_input = st.number_input("Total Goal Amount ($)", min_value=0.0, value=float(total_goal), step=1000.0)
+    timeline_years_input = st.number_input("Timeline (Years)", min_value=1, value=int(timeline_years), step=1)
     
     # Display the contribution slider and information for Partner 1 (left column)
     split_percent_1 = st.slider(f"{your_name}'s Contribution (%)", min_value=0, max_value=100, value=split_percent, key="split_percent_1")
@@ -98,8 +98,8 @@ with col2:
     
     # Display input fields for Partner 2 (goal name, total goal, timeline)
     goal_name_input_2 = st.text_input("Goal Name", value=goal_name, key="goal_name_input_2")
-    total_goal_input_2 = st.number_input("Total Goal Amount ($)", min_value=0, value=total_goal, step=1000)
-    timeline_years_input_2 = st.number_input("Timeline (Years)", min_value=1, value=timeline_years, step=1)
+    total_goal_input_2 = st.number_input("Total Goal Amount ($)", min_value=0.0, value=float(total_goal), step=1000.0)
+    timeline_years_input_2 = st.number_input("Timeline (Years)", min_value=1, value=int(timeline_years), step=1)
     
     # Display the contribution slider and information for Partner 2 (right column)
     split_percent_2 = st.slider(f"{partner_name}'s Contribution (%)", min_value=0, max_value=100, value=flip_percent, key="split_percent_2")
@@ -126,4 +126,4 @@ st.write(f"{partner_name}'s Contribution: {100 - split_percent_1}% → ${monthly
 
 # Right column contributions (from second partner, editable)
 st.write(f"{partner_name}'s Contribution: {split_percent_2}% → ${monthly_partner_2_contribution:.2f} monthly")
-st.write(f"{your_name}'s Contribution: {100 - split_percent_2}% → ${monthly_partner_1_contribution:.2f} monthly")
+st.write(f"{your_name}'s Contribution: {100 - split_percent_2}% → ${monthly_partner_1_contribution:.2f}")
