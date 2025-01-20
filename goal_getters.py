@@ -1,5 +1,4 @@
 import streamlit as st
-import urllib.parse
 import os
 
 # Step 1: Input Form for Partner 1
@@ -14,38 +13,35 @@ total_goal = st.number_input("Total Goal Amount ($)", min_value=0, value=50000, 
 timeline_years = st.number_input("Timeline (Years)", min_value=0.5, value=5.0, step=0.5)
 split_percent = st.slider("Your Contribution (%)", min_value=0, max_value=100, value=50)
 
-if st.button("Save & Send"):
-    # Encode data into URL
-    params = {
-        "your_name": your_name,
-        "partner_name": partner_name,
-        "goal_name": goal_name,
-        "total_goal": total_goal,
-        "timeline_years": timeline_years,
-        "split_percent": split_percent,
-    }
-    query_string = urllib.parse.urlencode(params)
+if st.button("Save & Generate File"):
+    # Prepare content for the text file
+    file_content = f"""Goal Getters - Collaborative Goal Planner
+-----------------------------------------
+Partner 1's Information:
+Your Name: {your_name}
+Partner's Name: {partner_name}
+Goal: {goal_name}
+Total Goal: ${total_goal}
+Timeline: {timeline_years} years
+Contribution Split: {split_percent}%
 
-    # Dynamically determine the base URL
-    if "BASE_URL" in st.secrets:  # Use BASE_URL from secrets if deployed
-        base_url = st.secrets["BASE_URL"]
-    else:  # Default to localhost for local development
-        base_url = "http://localhost:8501"
-
-    link = f"{base_url}/?{query_string}"  # Construct the full link
+Calculated Details:
+Your Contribution: ${total_goal * split_percent / 100}
+Partner's Contribution: ${total_goal * (100 - split_percent) / 100}
+"""
     
-    # Display the link for sharing
-    st.success("Link generated! Share this with your partner:")
-    st.write(link)
-
-# Step 2: Load Partner 1's Data if URL contains pre-filled parameters
-st.header("Review Partner 1's Plan")
-query_params = st.query_params  # Use the updated method to fetch query parameters
-if query_params:
-    st.write("Pre-filled details from Partner 1:")
-    st.write(f"Your Name: {query_params.get('your_name', [''])[0]}")
-    st.write(f"Partner's Name: {query_params.get('partner_name', [''])[0]}")
-    st.write(f"Goal: {query_params.get('goal_name', [''])[0]}")
-    st.write(f"Total Goal: ${query_params.get('total_goal', [''])[0]}")
-    st.write(f"Timeline: {query_params.get('timeline_years', [''])[0]} years")
-    st.write(f"Contribution Split: {query_params.get('split_percent', [''])[0]}%")
+    # Write content to a temporary text file
+    temp_file_path = "/tmp/goal_planner_output.txt"  # Streamlit can use /tmp to store temp files
+    with open(temp_file_path, "w") as file:
+        file.write(file_content)
+    
+    # Offer the file as a download
+    with open(temp_file_path, "rb") as file:
+        st.download_button(
+            label="Download Your Goal Planner",
+            data=file,
+            file_name="goal_planner_output.txt",
+            mime="text/plain"
+        )
+    
+    st.success("Your goal planner file has been generated! Download it and share with your partner.")
